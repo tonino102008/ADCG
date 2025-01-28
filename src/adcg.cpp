@@ -1,6 +1,8 @@
 #include <iostream>
 
 #include "adcg_ascalar.hpp"
+#include "adcg_binary_ops.hpp"
+#include "adcg_math_ops.hpp"
 
 int main() {
     
@@ -13,8 +15,8 @@ int main() {
     ascalar<real> res3(0.0);
 
     res = x + z;
-    res2 = res + y + x;
-    res3 = x * y * res2;
+    res2 = res + y - x;
+    res3 = tan(sin(cos(x * res2 / y)));
 
     std::cout << "X: " << x.getValue() << std::endl;
     std::cout << "Y: " << y.getValue() << std::endl;
