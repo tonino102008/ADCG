@@ -10,13 +10,9 @@ int main() {
     ascalar<real> y(2.0, 1);
     ascalar<real> z(3.0, 2);
 
-    ascalar<real> res(0.0);
-    ascalar<real> res2(0.0);
-    ascalar<real> res3(0.0);
-
-    res = x + z;
-    res2 = res + y - x;
-    res3 = tan(sin(cos(x * res2 / y)));
+    ascalar<real> res = x + z;
+    ascalar<real> res2 = res + y - x;
+    ascalar<real> res3 = tan(sin(cos(x * res2 / y)));
 
     std::cout << "X: " << x.getValue() << std::endl;
     std::cout << "Y: " << y.getValue() << std::endl;

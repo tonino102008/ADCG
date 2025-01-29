@@ -24,6 +24,7 @@ public:
 
     adouble() : val_(0), der_(std::map<std::size_t, T>()), n_(0) { der_[n_] = 0; };
     adouble(const T& val) : val_(val), der_(std::map<std::size_t, T>()), n_(0) { der_[n_] = 0; };
+    adouble(const T& val, const std::map<std::size_t, T>& der) : val_(val), der_(der), n_(0) {};
     adouble(const T& val, const std::size_t& n) : val_(val), der_(std::map<std::size_t, T>()), n_(n) { der_[n_] = 1; };
     adouble(const adouble<T>& adouble) : val_(adouble.getValue()), der_(adouble.getDerivative()), n_(adouble.getNo()) {};
 
@@ -56,7 +57,7 @@ public:
     ascalar(const T& val, const std::size_t& n) : adouble_(C(val, n)) {};
     ascalar(const C& adouble) : adouble_(adouble) {};
     template<typename T2, typename C2>
-    ascalar(const ascalar<T2, C2>& ascalar) : adouble_(ascalar.getData()) {};
+    ascalar(const ascalar<T2, C2>& ascalar) : adouble_(C(ascalar.getValue(), ascalar.getDerivative())) {};
 
     const C& getData() const { return adouble_; };
 
