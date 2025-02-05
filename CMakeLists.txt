@@ -5,7 +5,7 @@ set(CMAKE_VERBOSE_MAKEFILE ON)
 
 project(ADCG LANGUAGES CXX)
 
-option(BUILD_TESTS "Build test programs." OFF)
+option(BUILD_TESTS "Build test programs." ON)
 option(BUILD_LOGGING "Log ADCG and, eventually, the test programs." OFF)
 option(BUILD_PROFILER "Profile ADCG and, eventually, the test programs." OFF)
 option(BUILD_TIMING "Time ADCG computations." OFF)
@@ -24,9 +24,6 @@ endif()
 if(BUILD_TIMING)
     add_definitions(-DTIMING)
 endif()
-
-set(INCLUDE_DIR "../include")
-set(LIBS_DIR "../lib")
 
 set(SRC_DIR "src")
 add_subdirectory(${SRC_DIR})

@@ -1,3 +1,6 @@
+set(INCLUDE_DIR "../include")
+set(LIBS_DIR "../lib")
+
 add_executable(ADCG adcg.cpp)
 target_include_directories(ADCG PUBLIC ${INCLUDE_DIR})
 target_link_directories(ADCG PUBLIC ${LIBS_DIR})
