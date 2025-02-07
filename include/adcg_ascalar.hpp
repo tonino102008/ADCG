@@ -18,17 +18,15 @@ private:
     
     T val_;
     std::map<std::size_t, T> der_;
-    const std::size_t n_;
 
 public:
 
-    adouble() : val_(0), der_(std::map<std::size_t, T>()), n_(0) { der_[n_] = 0; };
-    adouble(const T& val) : val_(val), der_(std::map<std::size_t, T>()), n_(0) { der_[n_] = 0; };
-    adouble(const T& val, const std::map<std::size_t, T>& der) : val_(val), der_(der), n_(0) {};
-    adouble(const T& val, const std::size_t& n) : val_(val), der_(std::map<std::size_t, T>()), n_(n) { der_[n_] = 1; };
-    adouble(const adouble<T>& adouble) : val_(adouble.getValue()), der_(adouble.getDerivative()), n_(adouble.getNo()) {};
+    adouble() : val_(0), der_(std::map<std::size_t, T>()) {};
+    adouble(const T& val) : val_(val), der_(std::map<std::size_t, T>()) {};
+    adouble(const T& val, const std::map<std::size_t, T>& der) : val_(val), der_(der) {};
+    adouble(const T& val, const std::size_t& n) : val_(val), der_(std::map<std::size_t, T>()) { der_[n] = 1; };
+    adouble(const adouble<T>& adouble) : val_(adouble.getValue()), der_(adouble.getDerivative()) {};
 
-    const std::size_t& getNo() const { return n_; };
     T getValue() const { return val_; };
     T& getValue() { return val_; };
     std::map<std::size_t, T> getDerivative() const { return der_; };

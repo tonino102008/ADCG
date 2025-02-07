@@ -29,7 +29,7 @@ public:
         std::map<std::size_t, T> der(op1_.getDerivative());
         std::map<std::size_t, T> op2 = op2_.getDerivative();
         for (auto i = op2.begin(); i != op2.end(); i++)
-            der[i->first] += i->second;
+            der[i->first] = der[i->first] + i->second; // RIPORTA A PRIMA
         return der; 
     };
 
