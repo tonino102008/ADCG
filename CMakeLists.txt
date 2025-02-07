@@ -8,7 +8,7 @@ project(ADCG LANGUAGES CXX)
 option(BUILD_TESTS "Build test programs." ON)
 option(BUILD_LOGGING "Log ADCG and, eventually, the test programs." OFF)
 option(BUILD_PROFILER "Profile ADCG and, eventually, the test programs." OFF)
-option(BUILD_TIMING "Time ADCG computations." OFF)
+option(BUILD_TIMING "Time ADCG computations." ON)
 
 find_package(MKL CONFIG REQUIRED)
 set(CMAKE_CXX_COMPILER icpx)

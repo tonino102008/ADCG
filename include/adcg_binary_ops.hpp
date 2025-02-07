@@ -302,21 +302,6 @@ ascalar<T, ascalarSubC<T, R1>> operator-(const double& n, const ascalar<T, R1>& 
  * @brief 
  * 
  * @tparam T 
- * @tparam R1 
- * @param n 
- * @param op1 
- * @return ascalar<T, ascalarSubC<T, R1>> 
- */
-
-template<typename T, typename R1>
-ascalar<T, ascalarSubC<T, R1>> operator-(const ascalar<T, R1>& op1) {
-    return ascalar<T, ascalarSubC<T, R1>>(ascalarSubC<T, R1>(op1.getData(), 0.0));
-};
-
-/**
- * @brief 
- * 
- * @tparam T 
  * @tparam Op1 
  */
 
@@ -353,6 +338,42 @@ public:
 template<typename T, typename R1>
 ascalar<T, ascalarSubC1<T, R1>> operator-(const ascalar<T, R1>& op1, const double& n) {
     return ascalar<T, ascalarSubC1<T, R1>>(ascalarSubC1<T, R1>(op1.getData(), n));
+};
+
+template<typename T, typename Op1>
+class ascalarSubC2 {
+
+private:
+
+    const Op1& op1_;
+
+public:
+
+    ascalarSubC2(const Op1& op1) : op1_(op1) {};
+    
+    T getValue() const { return -op1_.getValue(); };
+    std::map<std::size_t, T> getDerivative() const { 
+        std::map<std::size_t, T> der(op1_.getDerivative());
+        for (auto i = der.begin(); i != der.end(); i++)
+            der[i->first] *= -1;
+        return der; 
+    };
+
+};
+
+/**
+ * @brief 
+ * 
+ * @tparam T 
+ * @tparam R1 
+ * @param n 
+ * @param op1 
+ * @return ascalar<T, ascalarSubC2<T, R1>> 
+ */
+
+template<typename T, typename R1>
+ascalar<T, ascalarSubC2<T, R1>> operator-(const ascalar<T, R1>& op1) {
+    return ascalar<T, ascalarSubC2<T, R1>>(ascalarSubC2<T, R1>(op1.getData()));
 };
 
 /**
