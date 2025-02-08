@@ -32,6 +32,62 @@ public:
     std::map<std::size_t, T> getDerivative() const { return der_; };
     std::map<std::size_t, T>& getDerivative() { return der_; };
 
+    template<typename T2>
+    adouble& operator+= (const adouble<T2>& op) {
+        val_ += op.getValue();
+        std::map<std::size_t, T> der2 = op.getDerivative();
+        for (auto i = der2.begin(); i != der2.end(); i++)
+            der_[i->first] += i->second;
+        return *this;
+    };
+
+    template<typename T2>
+    adouble& operator-= (const adouble<T2>& op) {
+        val_ -= op.getValue();
+        std::map<std::size_t, T> der2 = op.getDerivative();
+        for (auto i = der2.begin(); i != der2.end(); i++)
+            der_[i->first] -= i->second;
+        return *this;
+    };
+
+    template<typename T2>
+    adouble& operator*= (const T2& op) {
+        std::map<std::size_t, T> der = der_;
+        std::map<std::size_t, T> der2 = op.getDerivative();
+        for (auto i = der_.begin(); i != der_.end(); i++)
+            der_[i->first] = val_ * der2[i->first] + op.getValue() * i->second;
+        for (auto i = der2.begin(); i != der2.end(); i++)
+            der_[i->first] = val_ * i->second + op.getValue() * der[i->first];
+        val_ *= op.getValue();
+        return *this;
+    };
+
+    template<typename T2>
+    adouble& operator/= (const T2& op) {
+        std::map<std::size_t, T> der = der_;
+        std::map<std::size_t, T> der2 = op.getDerivative();
+        for (auto i = der_.begin(); i != der_.end(); i++)
+            der_[i->first] = (i->second * op.getValue() - val_ * der2[i->first]) / (op.getValue() * op.getValue());
+        for (auto i = der2.begin(); i != der2.end(); i++)
+            der_[i->first] = (der[i->first] * op.getValue() - val_ * i->second) / (op.getValue() * op.getValue());
+        val_ /= op.getValue();
+        return *this;
+    };
+
+    adouble& operator*= (const double& n) {
+        val_ *= n;
+        for (auto i = der_.begin(); i != der_.end(); i++)
+            der_[i->first] *= n;
+        return *this;
+    };
+
+    adouble& operator/= (const double& n) {
+        val_ /= n;
+        for (auto i = der_.begin(); i != der_.end(); i++)
+            der_[i->first] /= n;
+        return *this;
+    };
+
 };
 
 /**
@@ -63,6 +119,40 @@ public:
     T& getValue() { return adouble_.getValue(); };
     std::map<std::size_t, T> getDerivative() const { return adouble_.getDerivative(); };
     std::map<std::size_t, T>& getDerivative() { return adouble_.getDerivative(); };
+
+    template<typename T2, typename C2>
+    ascalar& operator+= (const ascalar<T2, C2>& op) {
+        adouble_ += op.getData();
+        return *this;
+    };
+
+    template<typename T2, typename C2>
+    ascalar& operator-= (const ascalar<T2, C2>& op) {
+        adouble_ -= op.getData();
+        return *this;
+    };
+
+    template<typename T2, typename C2>
+    ascalar& operator*= (const ascalar<T2, C2>& op) {
+        adouble_ *= op.getData();
+        return *this;
+    };
+
+    template<typename T2, typename C2>
+    ascalar& operator/= (const ascalar<T2, C2>& op) {
+        adouble_ /= op.getData();
+        return *this;
+    };
+
+    ascalar& operator*= (const double& n) {
+        adouble_ *= n;
+        return *this;
+    };
+
+    ascalar& operator/= (const double& n) {
+        adouble_ /= n;
+        return *this;
+    };
 
     template<typename T2, typename C2>
     ascalar& operator= (const ascalar<T2, C2>& op) {

@@ -14,7 +14,7 @@ int main() {
     x.getValue().getDerivative()[0] = 1;
     y.getValue().getDerivative()[1] = 1;
 
-    scalar res = y * x * x + y * y / x;
+    scalar res = cos(y * x * x - y * y / x);
 
     std::cout << "X: " << x.getValue().getValue() << std::endl;
     std::cout << "Y: " << y.getValue().getValue() << std::endl;
