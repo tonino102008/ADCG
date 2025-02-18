@@ -163,4 +163,12 @@ public:
     
 };
 
+template<std::size_t n, std::size_t m>
+void densifyDerivative(const std::array<std::map<std::size_t, real>, n>& spJ, std::array<real, m>& J) {
+    std::size_t k = m / n;
+    for (std::size_t i = 0; i < n; i++)
+        for (auto j = spJ[i].begin(); j != spJ[i].end(); j++)
+            J[j->first + i * k] = j->second;
+}
+
 #endif // ADCG_ASCALAR_H_

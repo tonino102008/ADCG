@@ -178,18 +178,18 @@ int main() {
         std::cout << "Total Time: " << elapsed.count() << " [ms]" << std::endl << std::endl;
     #endif
     
-    for (auto j : J) {
-        for (auto i = j.begin(); i != j.end(); i++)
-            std::cout << i->first << " : " << i->second.getValue() << std::endl;
-        std::cout << std::endl;
-    }
+    // for (auto j : J) {
+    //     for (auto i = j.begin(); i != j.end(); i++)
+    //         std::cout << i->first << " : " << i->second.getValue() << std::endl;
+    //     std::cout << std::endl;
+    // }
 
-    std::map<std::size_t, ascalar<real>> H0 = J[0];
-    for (auto i = H0.begin(); i != H0.end(); i++) {
-        for (auto j = i->second.getDerivative().begin(); j != i->second.getDerivative().end(); j++)
-            std::cout << j->first << " : " << j->second << '\n';
-        std::cout << std::endl;
-    }
+    // std::map<std::size_t, ascalar<real>> H0 = J[0];
+    // for (auto i = H0.begin(); i != H0.end(); i++) {
+    //     for (auto j = i->second.getDerivative().begin(); j != i->second.getDerivative().end(); j++)
+    //         std::cout << j->first << " : " << j->second << '\n';
+    //     std::cout << std::endl;
+    // }
     
     return 0;
 

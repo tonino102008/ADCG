@@ -1,5 +1,7 @@
 #include <iostream>
 #include <chrono>
+#include <array>
+#include <iomanip>
 
 #include "adcg_ascalar.hpp"
 #include "adcg_binary_ops.hpp"
@@ -187,6 +189,17 @@ int main() {
     for (auto i = J7.begin(); i != J7.end(); i++)
         std::cout << i->first << " : " << i->second << std::endl;
     std::cout << std::endl;
+
+    std::array<std::map<std::size_t, real>, 7> spJ = {J1, J2, J3, J4, J5, J6, J7};
+    std::array<real, 7 * 9> J{0};
+
+    densifyDerivative(spJ, J);
+
+    for (auto i = 0; i < 7; i++) {
+        for (auto j = 0 + i * 9; j < 9 + i * 9; j++)
+            std::cout << std::fixed << std::setprecision(6) << std::setw(9) << std::setfill(' ') << J[j] << '\t';
+        std::cout << std::endl;
+    }
     
     return 0;
 
