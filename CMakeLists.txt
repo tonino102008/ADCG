@@ -6,12 +6,18 @@ set(CMAKE_VERBOSE_MAKEFILE ON)
 project(ADCG CXX)
 
 option(BUILD_TESTS "Build test programs." ON)
+option(BUILD_IPOPT_TESTS "Build Ipopt test programs." ON)
 option(BUILD_LOGGING "Log ADCG and, eventually, the test programs." OFF)
 option(BUILD_PROFILER "Profile ADCG and, eventually, the test programs." OFF)
 option(BUILD_TIMING "Time ADCG computations." ON)
 
 if (${CMAKE_CXX_COMPILER_ID} STREQUAL "Clang")
     find_package(MKL CONFIG REQUIRED)
+endif()
+
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/modules/")
+if (BUILD_IPOPT_TESTS)
+    find_package(IPOPT REQUIRED)
 endif()
 
 if(BUILD_PROFILER)
